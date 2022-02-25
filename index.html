@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta http-equiv="X-UA-Compatible" charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, ie=edge">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" crossorigin="anonymous" /> 
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/jquery.dataTables.min.css" integrity="sha512-1k7mWiTNoyx2XtmI96o+hdjP8nn0f3Z2N4oF/9ZZRgijyV4omsKOXEnqL1gKQNPy2MTSP9rIEWGcH/CInulptA==" crossorigin="anonymous" /> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/brands.min.css" integrity="sha512-dBL5cY4qTt42J1cfabCHTYR7KMztyd+n4t2GhD6EH/MKWJIIHuEYckJ1nHEpTwIaiDkrjzbc6WyiSkdLP+3INQ==" crossorigin="anonymous" />
+ <link rel="stylesheet" type="text/css" href="./css/main.css">
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js" integrity="sha512-wV7Yj1alIZDqZFCUQJy85VN+qvEIly93fIQAN7iqDFCPEucLCeNFz4r35FCo9s6WrpdDQPi80xbljXB8Bjtvcg==" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous"></script>
+ <script type="text/javascript" src="./js/bundle.js"></script>
+
+ <title>budget app</title>
+</head>
+
+<body>
+  <div class="container-fluid" id="container-fluid">
+    <div class="row">
+      <div class="col-11 mx-auto pt-3">
+
+        <div id="dialog" title="Close Options" style="margin: 3% auto;">
+          <div class="row mb-3">
+            <p style="margin-left: auto; margin-right: auto;">You can choose 2 options when exiting this program</p>
+          </div>
+          <div class="row mb-3" style="justify-content: space-around;">
+            <button class="btn" id="closeWithout">Close without deleting data</button>
+            <button class="btn" id="closeWith">Close With data delete</button>
+          </div>
+        </div>
+
+        <div class="row" style="justify-content: space-between;">
+          <div class="col-8" style="align-self: center;">
+            <h2>Transaction Application</h2>
+            <p>By Nabih Bassil </p>
+          </div>
+          <div class="col-1 text-center">
+            <span id="exitProgram" class="balance-icon" style="cursor: pointer;"><i
+                class="fas fa-sign-out-alt"></i></span>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-md-5 my-3">
+            <div class="alert" id="transaction-popup">Transaction Complete</div>
+            <form action="/index" method="POST" id="transaction-form" class="formContainer">
+              <label>Please Enter the Transaction Description</label>
+              <div class="form-group">
+                <input required type="text" class="form-control transaction-input" id="description-input">
+              </div>
+              <label>Please Enter the Transaction Date</label>
+              <div class="form-group">
+                <input required type="date" class="form-control transaction-input" id="date-input">
+              </div>
+              <label>Please Enter the Transaction Amount</label>
+              <div class="form-group">
+                <input required type="number" class="form-control transaction-input" id="amount-input">
+              </div>
+
+              <button type="submit" class="btn transaction-submit" id="transaction-submit">Save</button>
+            </form>
+          </div>
+
+          <div class="col-md-7">
+            <div class="row my-3">
+              <h3 style="margin: 1em auto;">Statistics Panel</h3>
+            </div>
+            <div class="row my-3">
+              <div class="col-4 text-center mb-2">
+                <h6 class="text-uppercase info-title">Income</h6>
+                <span class="income-icon"><i class="fas fa-plus-circle"></i></span>
+                <h4 class="text-uppercase mt-2 income" id="income"><span>$ </span><span id="income-amount">0</span></h4>
+              </div>
+              <div class="col-4 text-center">
+                <h6 class="text-uppercase info-title">Expense</h6>
+                <span class="expense-icon"><i class="fas fa-minus-circle"></i></span>
+                <h4 class="text-uppercase mt-2 expense" id="expense"><span>$ </span><span id="expense-amount">0</span>
+                </h4>
+              </div>
+              <div class="col-4 text-center">
+                <h6 class="text-uppercase info-title">Balance</h6>
+                <span class="balance-icon"><i class="fas fa-dollar-sign"></i></span>
+                <h4 class="text-uppercase mt-2 balance" id="balance"> <span>$ </span><span id="balance-amount">0</span>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-5 my-3" style="align-self: center;">
+            <div class="alert" id="query-popup">Query Complete</div>
+            <form action="/query" method="GET" id="query-form" class="formContainer">
+              <label>Query by number of entries</label>
+              <div class="form-group">
+                <input type="number" min="0" class="form-control transaction-input" id="query-amount">
+              </div>
+              <div class="form-group" style="display: flex;justify-content: center;">
+                <label>--- OR ---</label>
+              </div>
+              <label>Query by transaction date FROM</label>
+              <div class="form-group">
+                <input type="date" class="form-control transaction-input" id="date-from">
+              </div>
+              <label>Query by transaction date TO</label>
+              <div class="form-group">
+                <input type="date" class="form-control transaction-input" id="date-to">
+              </div>
+              <div class="form-group" style="display: flex; justify-content: space-between;">
+              <button type="submit" class="btn query-submit" id="query-submit">Lookup</button>
+              <input type="button" value="Reset" class="btn" id="reset" onClick="window.location.reload();" />
+            </div>
+            </form>
+          </div>
+
+          <div class="col-md-7 my-3">
+            <!--the table -->
+            <table id="example" class="display" style="width:100%">
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>$ Amount</th>
+                  <th>Date</th>
+                  <th></th>
+                  <th>Date entered</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+</body>
+</html>
